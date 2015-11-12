@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &115338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 434498}
+  - 114: {fileID: 11423768}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434498
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 485, y: 303, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11423768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf5ec340674f2048844c58f1662c77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Avatars:
+  - {fileID: 21300000, guid: dd641c714bc80c74ab479e243682acfc, type: 3}
+  - {fileID: 21300000, guid: be8dde42f76b3424d98c30ffc865c833, type: 3}
+  - {fileID: 21300000, guid: aa6a836262000b345916a3977a130979, type: 3}
+  - {fileID: 21300000, guid: a3a2ab62f35d57349940ee352be9b2d7, type: 3}
+  - {fileID: 21300000, guid: 03f027943c758ad46a231abf4b8594cc, type: 3}
+  - {fileID: 21300000, guid: a847e31670159d1478b73662c512a99b, type: 3}
+  - {fileID: 21300000, guid: a7f983472a3025b4ba061d0fa1369ca1, type: 3}
+  - {fileID: 21300000, guid: 72019cf7667dbdc49adec93b1cb0ba13, type: 3}
+  - {fileID: 21300000, guid: 6f8b7858b87a9d644ba63eb1c80fc0f0, type: 3}
+  - {fileID: 21300000, guid: 2d531d68435d472439a8d790dc1b8c23, type: 3}
+  - {fileID: 21300000, guid: 6e4225782e07fd14ea1f85bd9f66c3c0, type: 3}
+  - {fileID: 21300000, guid: e568dce80af62184581da84113a8a38e, type: 3}
+  - {fileID: 21300000, guid: 13dae5dc8c285ba4d83ff4b2843e89c9, type: 3}
+  - {fileID: 21300000, guid: 1880e32dfb1d0634b9fc43a1e565eb3f, type: 3}
+  - {fileID: 21300000, guid: 68b8a98d17a014049969ba6d2eed93b1, type: 3}
+  - {fileID: 21300000, guid: 89a9a9ae118bfbc4894d66db2725d5c0, type: 3}
+  Names:
+  - Travis Scott
+  - Denny Scott
+  - Dustin Horrock
+  - Garrett Smith
+  - Yaphet Abraha
+  - John Dart
+  - Phil Gsomething
+  - Craig Vogel
+  - Colin Dyson
+  - Karl Deirkens
+  - Shawn Bernard
+  - Jeff Fulton
+  - King Dedede
+  - Adrian Harrison
+  - Cam Iunno
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 115338}
+  m_IsPrefabParent: 1
