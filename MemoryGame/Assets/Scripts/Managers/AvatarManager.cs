@@ -3,15 +3,18 @@ using System.Collections.Generic;
 
 public class AvatarManager : Manager<AvatarManager> {
 
+    #region Public Variables
     [Tooltip("Sprites that can be used as headshots for different people")]
     public List<Sprite> Headshots;
     [Tooltip("Strings that are used as names for the different people")]
-    public List<string> Names; 
+    public List<string> Names;
+    #endregion
 
+    #region Public Methods
     /// <summary>
     /// Returns a random Sprite from the Headshots list
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A Sprite headshot</returns>
     public Sprite GetRandomSprite() {
         return GetRandomListElement(Headshots);
     }
@@ -19,11 +22,13 @@ public class AvatarManager : Manager<AvatarManager> {
     /// <summary>
     /// Returns a random string from the Names list
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A String name</returns>
     public string GetRandomName() {
         return GetRandomListElement(Names);
     }
+    #endregion
 
+    #region Private Methods
     /// <summary>
     /// Returns a random element from the passed List, and removes it from the list
     /// </summary>
@@ -44,4 +49,5 @@ public class AvatarManager : Manager<AvatarManager> {
         //Return the removed element
         return returnElement;
     }
+    #endregion
 }
