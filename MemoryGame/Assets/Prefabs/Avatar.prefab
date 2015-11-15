@@ -11,7 +11,6 @@ GameObject:
   - 222: {fileID: 22232846}
   - 114: {fileID: 11430518}
   - 114: {fileID: 11490916}
-  - 114: {fileID: 11435492}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -30,7 +29,6 @@ GameObject:
   - 222: {fileID: 22290684}
   - 114: {fileID: 11460340}
   - 114: {fileID: 11409738}
-  - 114: {fileID: 11446824}
   m_Layer: 5
   m_Name: Avatar
   m_TagString: Untagged
@@ -48,6 +46,7 @@ GameObject:
   - 224: {fileID: 22437426}
   - 222: {fileID: 22213122}
   - 114: {fileID: 11468282}
+  - 114: {fileID: 11433284}
   m_Layer: 5
   m_Name: AvatarAndText
   m_TagString: Untagged
@@ -105,28 +104,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Some Name
---- !u!114 &11435492
+--- !u!114 &11433284
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 134106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375e1aabf301c754e82d47d16d815d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11446824
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151196}
+  m_GameObject: {fileID: 185386}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6693b1808a868e4791c07a899ad335e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AvatarImage: {fileID: 11460340}
+  Text: {fileID: 11430518}
 --- !u!114 &11460340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,7 +259,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: AvatarImage
+      value: 
+      objectReference: {fileID: 11460340}
+    - target: {fileID: 0}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 11430518}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 185386}

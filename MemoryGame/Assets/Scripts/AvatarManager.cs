@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 public class AvatarManager : Manager<AvatarManager> {
 
-    [Tooltip("Sprites that can be used as images for different people")]
-    public List<Sprite> Avatars;
+    [Tooltip("Sprites that can be used as headshots for different people")]
+    public List<Sprite> Headshots;
     [Tooltip("Strings that are used as names for the different people")]
     public List<string> Names; 
 
     /// <summary>
-    /// Returns a random Sprite from the Avatars list
+    /// Returns a random Sprite from the Headshots list
     /// </summary>
     /// <returns></returns>
     public Sprite GetRandomSprite() {
-        return GetRandomListElement(Avatars);
+        return GetRandomListElement(Headshots);
     }
 
     /// <summary>

@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
 public class ActorName : MonoBehaviour {
 
     private Text _text;

@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf5ec340674f2048844c58f1662c77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatars:
+  Headshots:
   - {fileID: 21300000, guid: dd641c714bc80c74ab479e243682acfc, type: 3}
   - {fileID: 21300000, guid: be8dde42f76b3424d98c30ffc865c833, type: 3}
   - {fileID: 21300000, guid: aa6a836262000b345916a3977a130979, type: 3}
