@@ -2,7 +2,8 @@
 using UnityEngine;
 
 public static class Extensions {
-    
+
+    #region Transform Extensions
     /// <summary>
     /// Sets the x position of the transform to the float passed
     /// </summary>
@@ -119,6 +120,9 @@ public static class Extensions {
         return null;
     }
 
+    #endregion
+
+    #region GameObject Extensions
     /// <summary>
     /// Sets the parent of the given gameobject as the other gameobject passed
     /// </summary>
@@ -142,6 +146,10 @@ public static class Extensions {
 
         }
     }
+
+    #endregion
+
+    #region Action Extensions
 
     /// <summary>
     /// Calls the delegate if it is not null
@@ -173,6 +181,10 @@ public static class Extensions {
 
         }
     }
+
+    #endregion
+
+    #region Func Extensions
 
     /// <summary>
     /// Calls the delegate if it is not null and returns true if the func is null or if all invocations return true
@@ -255,4 +267,6 @@ public static class Extensions {
         return true;
 
     }
+
+    #endregion
 }

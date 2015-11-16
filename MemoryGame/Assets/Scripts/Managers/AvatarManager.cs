@@ -6,6 +6,7 @@ public class AvatarManager : Manager<AvatarManager> {
     #region Public Variables
     [Tooltip("Sprites that can be used as headshots for different people")]
     public List<Sprite> Headshots;
+
     [Tooltip("Strings that are used as names for the different people")]
     public List<string> Names;
     #endregion
