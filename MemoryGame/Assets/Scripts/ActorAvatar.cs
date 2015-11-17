@@ -33,6 +33,9 @@ public class ActorAvatar : MonoBehaviour {
         TriggerAvatarOnChange();
     }
 
+    /// <summary>
+    /// Triggers the OnChange Event, but safetly checks it first
+    /// </summary>
     void TriggerAvatarOnChange() {
         AvatarOnChange.Run(this);
     }
