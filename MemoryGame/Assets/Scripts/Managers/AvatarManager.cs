@@ -93,6 +93,7 @@ public class AvatarManager : Manager<AvatarManager> {
     /// </summary>
     /// <typeparam name="T">The type of element returned</typeparam>
     /// <param name="list">A list of T elements with one being returned</param>
+    /// <param name="removeElement">if true, the element will be removed from the list once randomly chosen</param>
     /// <returns>An element of T type</returns>
     static T GetRandomListElement<T>(IList<T> list, bool removeElement = false) {
         
