@@ -4,21 +4,38 @@ using UnityEngine.UI;
 
 public class ActorAvatar : MonoBehaviour {
 
+    #region Public Variables
+    [Tooltip("The Image UI component that will contain the headshot of the avatar to appear on screen")]
     public Image AvatarImage;
-    public Text Text;
 
-	// Use this for initialization
-	void Start () {
-	    RandomizeAvatar();
-    }
+    [Tooltip("The Text UI component that will contain the name of the avatar to appear on screen")]
+    public Text Text;
+    #endregion
+
+    #region Events
+    public Action<ActorAvatar> AvatarOnChange; // Event that triggers when the name or headshot of the avatar changes
+    #endregion
+
+    #region Private Methods
 
     /// <summary>
-    /// Randomize the name and sprite for this avatar.
+    /// Sets the avatar to the name and sprite passed
     /// </summary>
-    void RandomizeAvatar() {
-        AvatarImage.sprite = AvatarManager.Instance.GetRandomSprite();
-        Text.text = AvatarManager.Instance.GetRandomName();
+    /// <param name="sprite">The new headshot for the avatar</param>
+    /// <param name="avatarName">The new name for the avatar</param>
+    public void SetAvatar(Sprite sprite, string avatarName) {
+
+        // Set the sprite and text of the Avatar
+        AvatarImage.sprite = sprite;
+        Text.text = avatarName;
+        
+        // Trigger the AvatarOnChange event
+        TriggerAvatarOnChange();
     }
 
+    void TriggerAvatarOnChange() {
+        AvatarOnChange.Run(this);
+    }
 
+    #endregion
 }
