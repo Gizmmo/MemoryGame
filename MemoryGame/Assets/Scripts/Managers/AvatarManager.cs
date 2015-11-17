@@ -20,6 +20,33 @@ public class AvatarManager : Manager<AvatarManager> {
         SetNewAvatars();
     }
 
+    #region Public Methods
+   
+    /// <summary>
+    /// Randomizes the headshot and names for all ActorAvatars in the Avatars array.
+    /// </summary>
+    public void RandomizeAllAvatars() {
+        
+        // For each ActorAvatar in the Avatars array...
+        for (var i = 0; i < Avatars.Count; i++) {
+            
+            // ...Randomize the headshot and name.
+            RandomizeAvatar(Avatars[i]);
+        }
+    }
+
+    /// <summary>
+    /// Sets the given Avatar to a random headshot and name
+    /// </summary>
+    /// <param name="avatar">The avatar to change the name and headshot of</param>
+    public void RandomizeAvatar(ActorAvatar avatar) {
+        avatar.SetAvatar(GetRandomSprite(), GetRandomName());
+    }
+
+    #endregion
+
+    #region Private Methods
+
     /// <summary>
     /// Sets the list avatars to each a new random AvatarPair
     /// </summary>
@@ -45,12 +72,11 @@ public class AvatarManager : Manager<AvatarManager> {
 
     }
 
-    #region Public Methods
     /// <summary>
     /// Returns a random Sprite from the Headshots list
     /// </summary>
     /// <returns>A Sprite headshot</returns>
-    public Sprite GetRandomSprite() {
+    Sprite GetRandomSprite() {
         return GetRandomListElement(Headshots);
     }
 
@@ -58,19 +84,17 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Returns a random string from the Names list
     /// </summary>
     /// <returns>A String name</returns>
-    public string GetRandomName() {
+    string GetRandomName() {
         return GetRandomListElement(Names);
     }
-    #endregion
 
-    #region Private Methods
     /// <summary>
     /// Returns a random element from the passed List, and removes it from the list
     /// </summary>
     /// <typeparam name="T">The type of element returned</typeparam>
     /// <param name="list">A list of T elements with one being returned</param>
     /// <returns>An element of T type</returns>
-    private static T GetRandomListElement<T>(IList<T> list) {
+    static T GetRandomListElement<T>(IList<T> list, bool removeElement = false) {
         
         //Get a random number between 0 and the total list count
         var avatarPosition = Random.Range(0, list.Count);
@@ -78,8 +102,11 @@ public class AvatarManager : Manager<AvatarManager> {
         //Get the element at the random position
         var returnElement = list[avatarPosition];
 
-        //Remove that element from the list
-        list.RemoveAt(avatarPosition);
+        // If the optional parameter removeElement is set to true...
+        if (removeElement) {
+            // ...then remove that element from the list.
+            list.RemoveAt(avatarPosition);
+        }
 
         //Return the removed element
         return returnElement;
