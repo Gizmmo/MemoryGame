@@ -60,37 +60,80 @@ public class AvatarManager : Manager<AvatarManager> {
         avatar.SetAvatar(GetRandomSprite(), GetRandomName());
     }
 
+    /// <summary>
+    /// Called whenever the Action Button is clicked
+    /// </summary>
     public void ActionClick() {
+        
+        // Depending on the State in the Current Game State...
         switch (_currentGameState) {
 
+            // ...if the state is on Start...
             case GameState.Start:
+                
+                // ...then Enable all disabled Avatars...
                 EnableAllAvatars();
+
+                // ...and Change the state to Memorize...
                 _currentGameState = GameState.Memorize;
+
+                // ...and Randomize and Save the new Avatar headshots and names...
                 SetNewAvatars();
+
+                // ...and update the text in the Button and Banner.
                 Banner.text = "Memorize!";
                 _buttonText.text = "Go!";
+
                 break;
 
+            // ...if the state is on Memorize...
             case GameState.Memorize:
+                
+                // ...then change the gameState to Restart...
                 _currentGameState = GameState.Restart;
+
+                // ...and Randomize all avatars (This will need to be updated)...
                 RandomizeAllAvatars();
+
+                // ...and Update the banner and button Text.
                 Banner.text = "Choose the Correct Pairs!";
                 _buttonText.text = "Restart";
+
                 break;
 
+            // ...if the state is on Restart...
             case GameState.Restart:
+                
+                // ...then Change the state to Start...
                 _currentGameState = GameState.Start;
+
+                // ...then Disable all Avatars...
                 DisableAllAvatars();
+
+                // ...and Change the Banner and Button Text.
                 Banner.text = "Click Start To Begin";
                 _buttonText.text = "Start";
+
                 break;
+
+            // ...if the state is on Countdown...
             case GameState.Countdown:
+                // ...then do nothing.
                 break;
+
+            // ...if the state is on Choose...
             case GameState.Choose:
+                // ...then do nothing.
                 break;
+
+            // ...if the state is on Result...
             case GameState.Result:
+                // ...then do nothing.
                 break;
+
+            // ...if the game state is non of the enums...
             default:
+                // ...then Throw an Argument out of range exception.
                 throw new ArgumentOutOfRangeException();
         }
     }
