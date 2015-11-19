@@ -59,18 +59,37 @@ public class AvatarManager : Manager<AvatarManager> {
     /// </summary>
     /// <returns>A int array with random numbers as elements</returns>
     int[] GetRandomIntArray(int size) {
+        return GetRandomIntArray(size, size);
+    }
+
+    /// <summary>
+    /// Returns a random int array between 0 and the max passed.
+    /// </summary>
+    /// <returns>A int array with random numbers as elements</returns>
+    int[] GetRandomIntArray(int size, int max) {
         
+        // Create a new int array of the max amount passed
+        var fullArray = new int[max];
         // Create a new int array of the size passed
         var returnArray = new int[size];
 
         // For each element in the int array...
-        for (var i = 0; i < size; i++) {
+        for (var i = 0; i < max; i++) {
             // ...put the number of the index in the array position
-            returnArray[i] = i;
+            fullArray[i] = i;
         }
-        
-        // Return the array Shuffled
-        return ShuffleArray(returnArray);
+
+        // Shuffle the fullArray.
+        ShuffleArray(fullArray);
+
+        // For each element in the returnArray...
+        for (var i = 0; i < size; i++) {
+            // ...grab the corresponding index of the randomized array.
+            returnArray[i] = fullArray[i];
+        }
+
+        // Return the array Shuffled with only the passed size.
+        return returnArray;
     }
 
     /// <summary>
@@ -215,15 +234,20 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Sets the list avatars to each a new random AvatarPair
     /// </summary>
     private void SetNewAvatars() {
+        
         // Clear out other stored Avatar Pairs
         _storedAvatarPairs.Clear();
+
+        //Get random int arrays for both sprite and name sequences
+        var randomSpriteSequence = GetRandomIntArray(Avatars.Count, Headshots.Count);
+        var randomNameSequence = GetRandomIntArray(Avatars.Count, Names.Count);
 
         // For each Avatar Actor Component in the List...
         for (var i = 0; i < Avatars.Count; i++) {
             
             // ... Get a new sprtie and name...
-            var sprite = GetRandomSprite();
-            var avatarName = GetRandomName();
+            var sprite = Headshots[randomSpriteSequence[i]];
+            var avatarName = Names[randomNameSequence[i]];
 
             // ... and store the two random variables in a new AvatarPair...
             _storedAvatarPairs.Add(new AvatarPair(sprite, avatarName));
@@ -231,46 +255,6 @@ public class AvatarManager : Manager<AvatarManager> {
             // ...and set the avatar on screen to that respective pair.
             Avatars[i].SetAvatar(sprite, avatarName);
         }
-    }
-
-    /// <summary>
-    /// Returns a random Sprite from the Headshots list
-    /// </summary>
-    /// <returns>A Sprite headshot</returns>
-    private Sprite GetRandomSprite() {
-        return GetRandomListElement(Headshots);
-    }
-
-    /// <summary>
-    /// Returns a random string from the Names list
-    /// </summary>
-    /// <returns>A String name</returns>
-    private string GetRandomName() {
-        return GetRandomListElement(Names);
-    }
-
-    /// <summary>
-    /// Returns a random element from the passed List, and removes it from the list
-    /// </summary>
-    /// <typeparam name="T">The type of element returned</typeparam>
-    /// <param name="list">A list of T elements with one being returned</param>
-    /// <param name="removeElement">if true, the element will be removed from the list once randomly chosen</param>
-    /// <returns>An element of T type</returns>
-    private static T GetRandomListElement<T>(IList<T> list, bool removeElement = false) {
-        //Get a random number between 0 and the total list count
-        var avatarPosition = Random.Range(0, list.Count);
-
-        //Get the element at the random position
-        var returnElement = list[avatarPosition];
-
-        // If the optional parameter removeElement is set to true...
-        if (removeElement) {
-            // ...then remove that element from the list.
-            list.RemoveAt(avatarPosition);
-        }
-
-        //Return the removed element
-        return returnElement;
     }
 
     #endregion
