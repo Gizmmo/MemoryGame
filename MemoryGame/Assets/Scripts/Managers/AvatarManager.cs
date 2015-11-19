@@ -42,22 +42,82 @@ public class AvatarManager : Manager<AvatarManager> {
     /// <summary>
     /// Randomizes the headshot and names for all ActorAvatars in the Avatars array.
     /// </summary>
-    public void RandomizeAllAvatars() {
-        
+    void RandomizeAllAvatars() {
+        var randomizedNameOrder = GetRandomIntArray(_storedAvatarPairs.Count);
+        var randomizedSpirteOrder = GetRandomIntArray(_storedAvatarPairs.Count);
+
         // For each ActorAvatar in the Avatars array...
         for (var i = 0; i < Avatars.Count; i++) {
             
             // ...Randomize the headshot and name.
-            RandomizeAvatar(Avatars[i]);
+            Avatars[i].SetAvatar(_storedAvatarPairs[randomizedNameOrder[i]].HeadShot, _storedAvatarPairs[randomizedSpirteOrder[i]].Name);
         }
     }
 
     /// <summary>
-    /// Sets the given Avatar to a random headshot and name
+    /// Returns a random int array between 0 and the size passed.
     /// </summary>
-    /// <param name="avatar">The avatar to change the name and headshot of</param>
-    public void RandomizeAvatar(ActorAvatar avatar) {
-        avatar.SetAvatar(GetRandomSprite(), GetRandomName());
+    /// <returns>A int array with random numbers as elements</returns>
+    static int[] GetRandomIntArray(int size) {
+        return GetRandomIntArray(size, size);
+    }
+
+    /// <summary>
+    /// Returns a random int array between 0 and the max passed.
+    /// </summary>
+    /// <returns>A int array with random numbers as elements</returns>
+    static int[] GetRandomIntArray(int size, int max) {
+        
+        // Create a new int array of the max amount passed
+        var fullArray = new int[max];
+        // Create a new int array of the size passed
+        var returnArray = new int[size];
+
+        // For each element in the int array...
+        for (var i = 0; i < max; i++) {
+            // ...put the number of the index in the array position
+            fullArray[i] = i;
+        }
+
+        // Shuffle the fullArray.
+        ShuffleArray(fullArray);
+
+        // For each element in the returnArray...
+        for (var i = 0; i < size; i++) {
+            // ...grab the corresponding index of the randomized array.
+            returnArray[i] = fullArray[i];
+        }
+
+        // Return the array Shuffled with only the passed size.
+        return returnArray;
+    }
+
+    /// <summary>
+    /// Shuffles an array and returns it
+    /// </summary>
+    /// <typeparam name="T">The type of array to shuffle and return</typeparam>
+    /// <param name="arr">The array to randomize</param>
+    /// <returns>The randomized arrays</returns>
+    public static T[] ShuffleArray<T>(T[] arr) {
+        
+        // For each element in the passed array...
+        for (var i = arr.Length - 1; i > 0; i--) {
+            
+            // ...then Get a random number between 0 and the current index...
+            var r = Random.Range(0, i);
+
+            // ...and store the i index array element in a temporary variable...
+            T tmp = arr[i];
+
+            // ...and store the random element into the index position element...
+            arr[i] = arr[r];
+
+            // ...and then store the temp variable back into the random position element.
+            arr[r] = tmp;
+        }
+
+        //Return the shuffeled array
+        return arr;
     }
 
     /// <summary>
@@ -174,15 +234,20 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Sets the list avatars to each a new random AvatarPair
     /// </summary>
     private void SetNewAvatars() {
+        
         // Clear out other stored Avatar Pairs
         _storedAvatarPairs.Clear();
+
+        //Get random int arrays for both sprite and name sequences
+        var randomSpriteSequence = GetRandomIntArray(Avatars.Count, Headshots.Count);
+        var randomNameSequence = GetRandomIntArray(Avatars.Count, Names.Count);
 
         // For each Avatar Actor Component in the List...
         for (var i = 0; i < Avatars.Count; i++) {
             
             // ... Get a new sprtie and name...
-            var sprite = GetRandomSprite();
-            var avatarName = GetRandomName();
+            var sprite = Headshots[randomSpriteSequence[i]];
+            var avatarName = Names[randomNameSequence[i]];
 
             // ... and store the two random variables in a new AvatarPair...
             _storedAvatarPairs.Add(new AvatarPair(sprite, avatarName));
@@ -190,46 +255,6 @@ public class AvatarManager : Manager<AvatarManager> {
             // ...and set the avatar on screen to that respective pair.
             Avatars[i].SetAvatar(sprite, avatarName);
         }
-    }
-
-    /// <summary>
-    /// Returns a random Sprite from the Headshots list
-    /// </summary>
-    /// <returns>A Sprite headshot</returns>
-    private Sprite GetRandomSprite() {
-        return GetRandomListElement(Headshots);
-    }
-
-    /// <summary>
-    /// Returns a random string from the Names list
-    /// </summary>
-    /// <returns>A String name</returns>
-    private string GetRandomName() {
-        return GetRandomListElement(Names);
-    }
-
-    /// <summary>
-    /// Returns a random element from the passed List, and removes it from the list
-    /// </summary>
-    /// <typeparam name="T">The type of element returned</typeparam>
-    /// <param name="list">A list of T elements with one being returned</param>
-    /// <param name="removeElement">if true, the element will be removed from the list once randomly chosen</param>
-    /// <returns>An element of T type</returns>
-    private static T GetRandomListElement<T>(IList<T> list, bool removeElement = false) {
-        //Get a random number between 0 and the total list count
-        var avatarPosition = Random.Range(0, list.Count);
-
-        //Get the element at the random position
-        var returnElement = list[avatarPosition];
-
-        // If the optional parameter removeElement is set to true...
-        if (removeElement) {
-            // ...then remove that element from the list.
-            list.RemoveAt(avatarPosition);
-        }
-
-        //Return the removed element
-        return returnElement;
     }
 
     #endregion
