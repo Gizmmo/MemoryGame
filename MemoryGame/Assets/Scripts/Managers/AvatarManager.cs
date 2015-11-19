@@ -42,22 +42,63 @@ public class AvatarManager : Manager<AvatarManager> {
     /// <summary>
     /// Randomizes the headshot and names for all ActorAvatars in the Avatars array.
     /// </summary>
-    public void RandomizeAllAvatars() {
-        
+    void RandomizeAllAvatars() {
+        var randomizedNameOrder = GetRandomIntArray(_storedAvatarPairs.Count);
+        var randomizedSpirteOrder = GetRandomIntArray(_storedAvatarPairs.Count);
+
         // For each ActorAvatar in the Avatars array...
         for (var i = 0; i < Avatars.Count; i++) {
             
             // ...Randomize the headshot and name.
-            RandomizeAvatar(Avatars[i]);
+            Avatars[i].SetAvatar(_storedAvatarPairs[randomizedNameOrder[i]].HeadShot, _storedAvatarPairs[randomizedSpirteOrder[i]].Name);
         }
     }
 
     /// <summary>
-    /// Sets the given Avatar to a random headshot and name
+    /// Returns a random int array between 0 and the size passed.
     /// </summary>
-    /// <param name="avatar">The avatar to change the name and headshot of</param>
-    public void RandomizeAvatar(ActorAvatar avatar) {
-        avatar.SetAvatar(GetRandomSprite(), GetRandomName());
+    /// <returns>A int array with random numbers as elements</returns>
+    int[] GetRandomIntArray(int size) {
+        
+        // Create a new int array of the size passed
+        var returnArray = new int[size];
+
+        // For each element in the int array...
+        for (var i = 0; i < size; i++) {
+            // ...put the number of the index in the array position
+            returnArray[i] = i;
+        }
+        
+        // Return the array Shuffled
+        return ShuffleArray(returnArray);
+    }
+
+    /// <summary>
+    /// Shuffles an array and returns it
+    /// </summary>
+    /// <typeparam name="T">The type of array to shuffle and return</typeparam>
+    /// <param name="arr">The array to randomize</param>
+    /// <returns>The randomized arrays</returns>
+    public static T[] ShuffleArray<T>(T[] arr) {
+        
+        // For each element in the passed array...
+        for (var i = arr.Length - 1; i > 0; i--) {
+            
+            // ...then Get a random number between 0 and the current index...
+            var r = Random.Range(0, i);
+
+            // ...and store the i index array element in a temporary variable...
+            T tmp = arr[i];
+
+            // ...and store the random element into the index position element...
+            arr[i] = arr[r];
+
+            // ...and then store the temp variable back into the random position element.
+            arr[r] = tmp;
+        }
+
+        //Return the shuffeled array
+        return arr;
     }
 
     /// <summary>
