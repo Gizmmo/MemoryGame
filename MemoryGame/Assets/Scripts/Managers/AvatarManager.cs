@@ -58,7 +58,7 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Returns a random int array between 0 and the size passed.
     /// </summary>
     /// <returns>A int array with random numbers as elements</returns>
-    int[] GetRandomIntArray(int size) {
+    static int[] GetRandomIntArray(int size) {
         return GetRandomIntArray(size, size);
     }
 
@@ -66,7 +66,7 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Returns a random int array between 0 and the max passed.
     /// </summary>
     /// <returns>A int array with random numbers as elements</returns>
-    int[] GetRandomIntArray(int size, int max) {
+    static int[] GetRandomIntArray(int size, int max) {
         
         // Create a new int array of the max amount passed
         var fullArray = new int[max];
