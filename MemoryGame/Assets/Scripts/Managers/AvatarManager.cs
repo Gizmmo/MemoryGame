@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -13,24 +12,19 @@ public class AvatarManager : Manager<AvatarManager> {
     [Tooltip("Strings that are used as names for the different people")]
     public List<string> Names;
 
+    [Tooltip("The Avatars that will nead headshots and names")]
     public List<ActorAvatar> Avatars;
 
+    [Tooltip("The Banner to display directions for the user")]
     public Text Banner;
+    
+    [Tooltip("The Button to push to move states forward")]
     public Button ActionButton;
+    
+
     private Text _buttonText;
 
     private List<AvatarPair> _storedAvatarPairs = new List<AvatarPair>();
-
-    private enum GameState {
-        Start,
-        Memorize,
-        Countdown,
-        Choose,
-        Result,
-        Restart
-    }
-
-    private GameState _currentGameState = GameState.Start;
     #endregion
 
     void Start() {
@@ -121,84 +115,6 @@ public class AvatarManager : Manager<AvatarManager> {
     }
 
     /// <summary>
-    /// Called whenever the Action Button is clicked
-    /// </summary>
-    public void ActionClick() {
-        
-        // Depending on the State in the Current Game State...
-        switch (_currentGameState) {
-
-            // ...if the state is on Start...
-            case GameState.Start:
-                
-                // ...then Enable all disabled Avatars...
-                EnableAllAvatars();
-
-                // ...and Change the state to Memorize...
-                _currentGameState = GameState.Memorize;
-
-                // ...and Randomize and Save the new Avatar headshots and names...
-                SetNewAvatars();
-
-                // ...and update the text in the Button and Banner.
-                Banner.text = "Memorize!";
-                _buttonText.text = "Go!";
-
-                break;
-
-            // ...if the state is on Memorize...
-            case GameState.Memorize:
-                
-                // ...then change the gameState to Restart...
-                _currentGameState = GameState.Restart;
-
-                // ...and Randomize all avatars (This will need to be updated)...
-                RandomizeAllAvatars();
-
-                // ...and Update the banner and button Text.
-                Banner.text = "Choose the Correct Pairs!";
-                _buttonText.text = "Restart";
-
-                break;
-
-            // ...if the state is on Restart...
-            case GameState.Restart:
-                
-                // ...then Change the state to Start...
-                _currentGameState = GameState.Start;
-
-                // ...then Disable all Avatars...
-                DisableAllAvatars();
-
-                // ...and Change the Banner and Button Text.
-                Banner.text = "Click Start To Begin";
-                _buttonText.text = "Start";
-
-                break;
-
-            // ...if the state is on Countdown...
-            case GameState.Countdown:
-                // ...then do nothing.
-                break;
-
-            // ...if the state is on Choose...
-            case GameState.Choose:
-                // ...then do nothing.
-                break;
-
-            // ...if the state is on Result...
-            case GameState.Result:
-                // ...then do nothing.
-                break;
-
-            // ...if the game state is non of the enums...
-            default:
-                // ...then Throw an Argument out of range exception.
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    /// <summary>
     /// Enables all Avatars on Screen
     /// </summary>
     public void EnableAllAvatars() {
@@ -229,6 +145,10 @@ public class AvatarManager : Manager<AvatarManager> {
             Avatars[i].gameObject.SetActive(isEnabled);
         }
     }
+    
+    public void ActionClick() {
+        GameStateManager.Instance.ActionClick();
+    }
 
     /// <summary>
     /// Sets the list avatars to each a new random AvatarPair
@@ -258,4 +178,48 @@ public class AvatarManager : Manager<AvatarManager> {
     }
 
     #endregion
+    
+    void OnEnable() {
+        GameStateManager.Instance.OnStart += StartState;
+        GameStateManager.Instance.OnMemorize += MemorizeState;
+        GameStateManager.Instance.OnRestart += RestartState;
+    }
+    
+    void OnDisable() {
+        GameStateManager.Instance.OnStart -= StartState;
+        GameStateManager.Instance.OnMemorize -= MemorizeState;
+        GameStateManager.Instance.OnRestart -= RestartState;
+    }
+    
+    void StartState() {
+                
+                // Enable all disabled Avatars
+                EnableAllAvatars();
+
+                // Randomize and Save the new Avatar headshots and names
+                SetNewAvatars();
+
+                // Update the text in the Button and Banner.
+                Banner.text = "Memorize!";
+                _buttonText.text = "Go!";
+    }
+    
+    void MemorizeState() {
+                // Randomize all avatars (This will need to be updated)...
+                RandomizeAllAvatars();
+
+                //  Update the banner and button Text.
+                Banner.text = "Choose the Correct Pairs!";
+                _buttonText.text = "Restart";
+    }
+    
+    void RestartState() {
+                
+                // Disable all Avatars
+                DisableAllAvatars();
+
+                // Change the Banner and Button Text.
+                Banner.text = "Click Start To Begin";
+                _buttonText.text = "Start";
+    }
 }
