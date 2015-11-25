@@ -20,7 +20,6 @@ public class AvatarManager : Manager<AvatarManager> {
     
     [Tooltip("The Button to push to move states forward")]
     public Button ActionButton;
-    
 
     private Text _buttonText;
 
@@ -147,7 +146,7 @@ public class AvatarManager : Manager<AvatarManager> {
     }
     
     public void ActionClick() {
-        GameStateManager.Instance.ActionClick();
+        GameStateManager.Instance.CurrentProgressState.ActionTrigger();
     }
 
     /// <summary>
@@ -180,18 +179,18 @@ public class AvatarManager : Manager<AvatarManager> {
     #endregion
     
     void OnEnable() {
-        GameStateManager.Instance.OnStart += StartState;
-        GameStateManager.Instance.OnMemorize += MemorizeState;
-        GameStateManager.Instance.OnRestart += RestartState;
+        GameStateManager.Instance.CurrentProgressState.OnStart += StartState;
+        GameStateManager.Instance.CurrentProgressState.OnMemorize += MemorizeState;
+        GameStateManager.Instance.CurrentProgressState.OnRestart += RestartState;
     }
     
     void OnDisable() {
-        GameStateManager.Instance.OnStart -= StartState;
-        GameStateManager.Instance.OnMemorize -= MemorizeState;
-        GameStateManager.Instance.OnRestart -= RestartState;
+        GameStateManager.Instance.CurrentProgressState.OnStart -= StartState;
+        GameStateManager.Instance.CurrentProgressState.OnMemorize -= MemorizeState;
+        GameStateManager.Instance.CurrentProgressState.OnRestart -= RestartState;
     }
     
-    void StartState() {
+    void MemorizeState() {
                 
                 // Enable all disabled Avatars
                 EnableAllAvatars();
@@ -204,7 +203,7 @@ public class AvatarManager : Manager<AvatarManager> {
                 _buttonText.text = "Go!";
     }
     
-    void MemorizeState() {
+    void RestartState() {
                 // Randomize all avatars (This will need to be updated)...
                 RandomizeAllAvatars();
 
@@ -213,7 +212,7 @@ public class AvatarManager : Manager<AvatarManager> {
                 _buttonText.text = "Restart";
     }
     
-    void RestartState() {
+    void StartState() {
                 
                 // Disable all Avatars
                 DisableAllAvatars();
