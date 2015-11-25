@@ -269,4 +269,32 @@ public static class Extensions {
     }
 
     #endregion
+
+    /// <summary>
+    /// Shuffles an array and returns it
+    /// </summary>
+    /// <typeparam name="T">The type of array to shuffle and return</typeparam>
+    /// <param name="arr">The array to randomize</param>
+    /// <returns>The randomized arrays</returns>
+    public static T[] ShuffleArray<T>(this T[] arr) {
+        
+        // For each element in the passed array...
+        for (var i = arr.Length - 1; i > 0; i--) {
+            
+            // ...then Get a random number between 0 and the current index...
+            var r = UnityEngine.Random.Range(0, i);
+
+            // ...and store the i index array element in a temporary variable...
+            T tmp = arr[i];
+
+            // ...and store the random element into the index position element...
+            arr[i] = arr[r];
+
+            // ...and then store the temp variable back into the random position element.
+            arr[r] = tmp;
+        }
+
+        //Return the shuffeled array
+        return arr;
+    }
 }

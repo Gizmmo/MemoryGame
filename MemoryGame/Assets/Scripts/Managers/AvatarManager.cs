@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class AvatarManager : Manager<AvatarManager> {
 
@@ -21,9 +20,9 @@ public class AvatarManager : Manager<AvatarManager> {
     [Tooltip("The Button to push to move states forward")]
     public Button ActionButton;
 
-    private Text _buttonText;
+    private Text _buttonText;   //The Text within the ActionButton
 
-    private List<AvatarPair> _storedAvatarPairs = new List<AvatarPair>();
+    private List<AvatarPair> _storedAvatarPairs = new List<AvatarPair>(); //Collection of AvatarPair objects that will be within Avatars
     #endregion
 
     void Start() {
@@ -36,8 +35,8 @@ public class AvatarManager : Manager<AvatarManager> {
     /// Randomizes the headshot and names for all ActorAvatars in the Avatars array.
     /// </summary>
     void RandomizeAllAvatars() {
-        var randomizedNameOrder = GetRandomIntArray(_storedAvatarPairs.Count);
-        var randomizedSpirteOrder = GetRandomIntArray(_storedAvatarPairs.Count);
+        var randomizedNameOrder = ArrayHelpers.GetRandomIntArray(_storedAvatarPairs.Count);
+        var randomizedSpirteOrder = ArrayHelpers.GetRandomIntArray(_storedAvatarPairs.Count);
 
         // For each ActorAvatar in the Avatars array...
         for (var i = 0; i < Avatars.Count; i++) {
@@ -48,82 +47,16 @@ public class AvatarManager : Manager<AvatarManager> {
     }
 
     /// <summary>
-    /// Returns a random int array between 0 and the size passed.
-    /// </summary>
-    /// <returns>A int array with random numbers as elements</returns>
-    static int[] GetRandomIntArray(int size) {
-        return GetRandomIntArray(size, size);
-    }
-
-    /// <summary>
-    /// Returns a random int array between 0 and the max passed.
-    /// </summary>
-    /// <returns>A int array with random numbers as elements</returns>
-    static int[] GetRandomIntArray(int size, int max) {
-        
-        // Create a new int array of the max amount passed
-        var fullArray = new int[max];
-        // Create a new int array of the size passed
-        var returnArray = new int[size];
-
-        // For each element in the int array...
-        for (var i = 0; i < max; i++) {
-            // ...put the number of the index in the array position
-            fullArray[i] = i;
-        }
-
-        // Shuffle the fullArray.
-        ShuffleArray(fullArray);
-
-        // For each element in the returnArray...
-        for (var i = 0; i < size; i++) {
-            // ...grab the corresponding index of the randomized array.
-            returnArray[i] = fullArray[i];
-        }
-
-        // Return the array Shuffled with only the passed size.
-        return returnArray;
-    }
-
-    /// <summary>
-    /// Shuffles an array and returns it
-    /// </summary>
-    /// <typeparam name="T">The type of array to shuffle and return</typeparam>
-    /// <param name="arr">The array to randomize</param>
-    /// <returns>The randomized arrays</returns>
-    public static T[] ShuffleArray<T>(T[] arr) {
-        
-        // For each element in the passed array...
-        for (var i = arr.Length - 1; i > 0; i--) {
-            
-            // ...then Get a random number between 0 and the current index...
-            var r = Random.Range(0, i);
-
-            // ...and store the i index array element in a temporary variable...
-            T tmp = arr[i];
-
-            // ...and store the random element into the index position element...
-            arr[i] = arr[r];
-
-            // ...and then store the temp variable back into the random position element.
-            arr[r] = tmp;
-        }
-
-        //Return the shuffeled array
-        return arr;
-    }
-
-    /// <summary>
     /// Enables all Avatars on Screen
     /// </summary>
-    public void EnableAllAvatars() {
+    private void EnableAllAvatars() {
         SetAvatarsEnabled(true);
     }
 
     /// <summary>
     /// Disables All Avatars on Screen
     /// </summary>
-    public void DisableAllAvatars() {
+    private void DisableAllAvatars() {
         SetAvatarsEnabled(false);
     }
 
@@ -158,8 +91,8 @@ public class AvatarManager : Manager<AvatarManager> {
         _storedAvatarPairs.Clear();
 
         //Get random int arrays for both sprite and name sequences
-        var randomSpriteSequence = GetRandomIntArray(Avatars.Count, Headshots.Count);
-        var randomNameSequence = GetRandomIntArray(Avatars.Count, Names.Count);
+        var randomSpriteSequence = ArrayHelpers.GetRandomIntArray(Avatars.Count, Headshots.Count);
+        var randomNameSequence = ArrayHelpers.GetRandomIntArray(Avatars.Count, Names.Count);
 
         // For each Avatar Actor Component in the List...
         for (var i = 0; i < Avatars.Count; i++) {
